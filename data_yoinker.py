@@ -1,3 +1,8 @@
+import json
+import code
+from typing import List
+
+
 def dictionarize(item): # fuck your conventions, im calling it that
     
     try:
@@ -16,9 +21,14 @@ def dictionarize(item): # fuck your conventions, im calling it that
     # elif type(item) == type({}):
     #     dictionarize(json.loads(item)) 
 
-    
-import json
-import code
+def write_data(input_jsons: List[str], output_json: str) -> None:
+    # have a main counter for the keys
+    # for each json file:
+    #   dictionarize,
+    #   for each item in data:
+    #       put each relevent attribute in a big dictionary[str(i)][attribute]      # this may have to rely on some hardcoding, but that's okay <3
+    # write data to output_json
+
 
 f = open("classes.json", "rt")
 data = f.read()
@@ -27,15 +37,11 @@ f.close()
 tree = dictionarize(data)
 
 
-class Sections:
-    def __init__(self, ):
-        # TODO
-    def is_sheduled_today(day: str) -> bool:
-        # TODO
-    def minutes_free() -> int: # probably not a float?
-        # TODO
 
 
+# - the go is:
+#   - we yoink the data into a dictionary -> json
+#   - make the main thing appending to the file
 
 # - id?:
 # - termDesc
@@ -70,5 +76,14 @@ class Sections:
 # - day of the week (later 
 # - start time
 # - end time
+
+
+# class Sections:
+#     def __init__(self, ):
+#         # TODO
+#     def is_sheduled_today(day: str) -> bool:
+#         # TODO
+#     def minutes_free() -> int: # probably not a float?
+#         # TODO
 
 code.interact(local = locals())
