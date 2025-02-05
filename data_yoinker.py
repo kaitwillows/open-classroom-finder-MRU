@@ -1,25 +1,40 @@
-def jsonize(item): # fuck your conventions, im calling it that
+def dictionarize(item): # fuck your conventions, im calling it that
+    
     try:
-        item = json.loads(item) 
-    except: # cant load bc its a string
-        return item # yeah???
-    # item itself is now a dictionary
-    return jsonize(item) # item may become a dictionary
+        return json.loads(item) 
+    except: # cant load bc its not a string or list (hopefully)
+        pass
+    if type(item) == type(""): # im so sorry to anyone reading this
+        return item
+    elif type(item) == type([]):
+        subdictionary = {}
+        for i, subitem in enumerate(item):
+            subdictionary[f"{i}"] = dictionarize(item)
+        return subdictionary
+    print("HELLO SOMETHING WENT WERID")
+
+    # elif type(item) == type({}):
+    #     dictionarize(json.loads(item)) 
 
     
 import json
+import code
 
-json_file = open("classes.json", "rt")
+f = open("classes.json", "rt")
+data = f.read()
+f.close()
 
-data = json_file.read()
-
-json_tree = jsonize(data)
-print(json_tree["data"][0]) 
+tree = dictionarize(data)
 
 
-raw_class_list = json_tree["data"]
+class Sections:
+    def __init__(self, ):
+        # TODO
+    def is_sheduled_today(day: str) -> bool:
+        # TODO
+    def minutes_free() -> int: # probably not a float?
+        # TODO
 
-for item in raw_class:
 
 
 # - id?:
@@ -27,8 +42,8 @@ for item in raw_class:
 # - subjectCourse
 # - sequenceNumber (i assume this is section)
 # - scheduleTypeDescription
-# - NO but then the meeting times are just in a one fucking item list what
-
+# - daysUsed (dictionary or hashmap)
+# - times
 
 
 # for each in class_list:
@@ -55,3 +70,5 @@ for item in raw_class:
 # - day of the week (later 
 # - start time
 # - end time
+
+code.interact(local = locals())
