@@ -3,19 +3,19 @@ import code
 from typing import List
 
 
-def dictionarize(item): # why wont this work
+def dictionarize(item): # this recursively turns a json into a tree of dictionaries
 
-    if type(item) == type(""): # im so sorry to anyone reading this
+    # TODO: docstrings maybe???
+
+    if type(item) == type(""):
         try:
-            json.loads(item)
-            print("not oke")
-
-            dictionarize(json.loads(item))
-            print("oke")
-            return dictionarize(json.loads(item))
-
+            json.loads(item) 
+            # don't run the recursive call inside here, or else any Real errors won't show up.
+            # thats not the best way to do it, but wtv, it works
+            # TODO: more specific error handling
         except: 
             return item # BASE CASE - a string that cannot be jsonified
+        return dictionarize(json.loads(item)) 
 
     elif type(item) == type([]):
         subdictionary = {}
@@ -23,13 +23,10 @@ def dictionarize(item): # why wont this work
             subdictionary[f"{i}"] = dictionarize(subitem)
         return subdictionary
     
-    elif type(item) == type({}):
+    elif type(item) == type({}): 
         for subkey in item:
-            print(type(subkey))
-            print(item[subkey]) # what the fuck
-            item[subkey] = dictionarize(item)
+            item[subkey] = dictionarize(item[subkey]) 
         return item
-    print("this shoudl really not happen")
 
 
 
@@ -53,7 +50,7 @@ def write_data(input_jsons: List[str], output_json: str) -> None:
         print(type(tree))
         # for item in 
 
-        # code.interact(local = locals())
+        code.interact(local = locals())
 
 write_data(["./classes.json"], "meow.json")
 
