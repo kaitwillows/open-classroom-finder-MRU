@@ -6,7 +6,10 @@ the following is a list of things that need to get done:
   - [x] recursively scrape data into a python dictionary tree
     - [ ] include/concatinate multiple files
   - [ ] translate the tree of class sections and when/where they meet, to a data structre in terms of room numbers and when they're booked
-- [ ] TODO: postprocessing
+- [ ] cli program
+  - [ ] "when is this class open till?"
+  - [ ] "which classrooms in this wing/building/floor will be open for the longest"
+  - [ ] maybe: getting more info on room schedule
 - [ ] clean up/making repo public
   - [ ] code clean up
   - [ ] documentation
