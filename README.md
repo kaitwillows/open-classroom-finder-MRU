@@ -10,5 +10,5 @@ the following is a list of things that need to get done:
 
 
 # limitations(??)
-- since the classroom data is semi-private, i wont be having it packaged with the code
+- since the classroom data is semi-private (only avalable to MRU students), i won't be having it packaged with the code
 - as the data only needs to be gathered/preprocessed once per semester, its not imperative that the process be automated
