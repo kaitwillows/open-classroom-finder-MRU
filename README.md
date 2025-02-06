@@ -7,6 +7,10 @@ the following is a list of things that need to get done:
     - [ ] include/concatinate multiple files
   - [ ] translate the tree of class sections and when/where they meet, to a data structre in terms of room numbers and when they're booked
 - [ ] TODO: postprocessing
+- [ ] clean up/making repo public
+  - [ ] code clean up
+  - [ ] documentation
+  - [ ] remove class list jsons from commit history
 
 
 # limitations(??)
