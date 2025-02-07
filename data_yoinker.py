@@ -2,6 +2,7 @@ import json
 import code
 from typing import List
 
+global_i = 0 # ensures no enumerated dictionary keys are the same. there is no doubt a better way to do this
 
 def dictionarize(item): # this recursively turns a json into a tree of dictionaries
 
@@ -18,9 +19,11 @@ def dictionarize(item): # this recursively turns a json into a tree of dictionar
         return dictionarize(json.loads(item)) 
 
     elif type(item) == type([]):
+        global global_i
         subdictionary = {}
-        for i, subitem in enumerate(item):
-            subdictionary[f"{i}"] = dictionarize(subitem)
+        for subitem in item:
+            subdictionary[f"{global_i}"] = dictionarize(subitem)
+            global_i = global_i + 1
         return subdictionary
     
     elif type(item) == type({}): 
@@ -41,7 +44,6 @@ def write_data(input_jsons: List[str], output_json: str) -> None:
     #   for each item in data:
     #       put each relevent attribute in a big dictionary[str(i)][attribute]      # this may have to rely on some hardcoding, but that's okay <3
     # write data to output_json
-    i = 0
     for input_file in input_jsons:
         f = open(input_file, "rt")
         data = f.read()
