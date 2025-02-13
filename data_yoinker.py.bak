@@ -34,8 +34,6 @@ def dictionarize(item): # this recursively turns a json into a tree of dictionar
         return f"{item}"
     elif type(item) == type(True):
         return item
-    elif type(item) == type(None):
-        return "null"
 
 
 
