@@ -30,7 +30,8 @@ def dictionarize(item): # this recursively turns a json into a tree of dictionar
         for subkey in item:
             item[subkey] = dictionarize(item[subkey]) 
         return item
-
+    elif type(item) == type(1):
+        return f"{item}"
 
 
 
@@ -38,31 +39,33 @@ def dictionarize(item): # this recursively turns a json into a tree of dictionar
 
 
 def write_data(input_jsons: List[str], output_json: str) -> None:
-    # have a main counter for the keys
-    # for each json file:
-    #   dictionarize,
-    #   for each item in data:
-    #       put each relevent attribute in a big dictionary[str(i)][attribute]      # this may have to rely on some hardcoding, but that's okay <3
-    # write data to output_json
+    data_list = []
     for input_file in input_jsons:
         f = open(input_file, "rt")
-        data = f.read()
+        data_list.append(f.read())
         f.close()
-        tree = dictionarize(data)
-        print(type(tree))
-        # for item in 
+    tree = dictionarize(data_list)
 
-        code.interact(local = locals())
+    
+    for page in tree.keys():
+        # print(tree[page]["data"].keys())
+        for section_index in tree[page]["data"].keys():
+            # print(f"tree[\"{page}\"][\"data\"][\"{section_index}\"]")
+            print(tree[page]["data"][section_index]["id"])
 
-write_data(["./classes.json"], "meow.json")
+    code.interact(local = locals())
+
+write_data(["./jsons/1.json","./jsons/2.json","./jsons/3.json","./jsons/4.json","./jsons/5.json"],  "meow.json")
 
 
 
 
 
-# - the go is:
-#   - we yoink the data into a dictionary -> json
-#   - make the main thing appending to the file
+
+# code.interact(local = locals())
+
+# good_data[id] = 
+
 
 # - id?:
 # - termDesc
