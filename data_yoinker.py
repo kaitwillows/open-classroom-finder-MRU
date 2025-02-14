@@ -5,8 +5,11 @@ from typing import List
 global_i = 0 # ensures no enumerated dictionary keys are the same. there is no doubt a better way to do this
 
 def dictionarize(item): # this recursively turns a json into a tree of dictionaries
-
-    # TODO: docstrings maybe???
+    '''recursively organizes json data into dictionary tree for easier handling
+    
+    notes:
+        - the `global_i` thing might be exceptionally shitty
+    '''
 
     if type(item) == type(""):
         try:
@@ -17,7 +20,6 @@ def dictionarize(item): # this recursively turns a json into a tree of dictionar
         except: 
             return item # BASE CASE - a string that cannot be jsonified
         return dictionarize(json.loads(item)) 
-
     elif type(item) == type([]):
         global global_i
         subdictionary = {}
@@ -25,7 +27,6 @@ def dictionarize(item): # this recursively turns a json into a tree of dictionar
             subdictionary[f"{global_i}"] = dictionarize(subitem)
             global_i = global_i + 1
         return subdictionary
-    
     elif type(item) == type({}): 
         for subkey in item:
             item[subkey] = dictionarize(item[subkey]) 
@@ -39,11 +40,10 @@ def dictionarize(item): # this recursively turns a json into a tree of dictionar
 
 
 
-
-
-
-
 def write_data(input_jsons: List[str], output_json: str) -> None:
+    '''writes a json file with relevant information in terms of class sections
+    '''
+    
     # eat data
     data_list = []
     for input_file in input_jsons:
@@ -56,7 +56,6 @@ def write_data(input_jsons: List[str], output_json: str) -> None:
 
     # digest data 
     for page in tree.keys():
-        # print(tree[page]["data"].keys())
         for section_index in tree[page]["data"].keys():
             this_id = tree[page]["data"][section_index]["id"]
             this_entry = tree[page]["data"][section_index]
@@ -69,7 +68,7 @@ def write_data(input_jsons: List[str], output_json: str) -> None:
             good_data[this_id]["scheduleTypeDescription"] = this_entry["scheduleTypeDescription"]
 
 
-            meetingTime = this_entry["meetingsFaculty"][list(this_entry["meetingsFaculty"].keys())[0]]["meetingTime"]
+            meetingTime = this_entry["meetingsFaculty"][list(this_entry["meetingsFaculty"].keys())[0]]["meetingTime"] # TODO: make this readable
 
             good_data[this_id]["beginTime"] = meetingTime["beginTime"]
             good_data[this_id]["endTime"] = meetingTime["endTime"]
@@ -81,7 +80,6 @@ def write_data(input_jsons: List[str], output_json: str) -> None:
             good_data[this_id]["saturday"] = meetingTime["saturday"]
             good_data[this_id]["sunday"] = meetingTime["sunday"]
             good_data[this_id]["room"] = meetingTime["room"]
-            # good_data[this_id][""] = meetingTime[""]
 
     # shit data
     output_json_data = json.dumps(good_data)
@@ -90,62 +88,4 @@ def write_data(input_jsons: List[str], output_json: str) -> None:
     f.close
 
 
-    # code.interact(local = locals())
-
-write_data(["./jsons/1.json","./jsons/2.json","./jsons/3.json","./jsons/4.json","./jsons/5.json"],  "meow.json")
-
-
-
-
-
-
-# code.interact(local = locals())
-
-# good_data[id] = 
-
-
-# - id?:
-# - termDesc
-# - subjectCourse
-# - sequenceNumber (i assume this is section)
-# - scheduleTypeDescription
-# - calc daysUsed (dictionary or hashmap)
-# - startTime
-# - endTime
-
-
-# for each in class_list:
-# well, hold on,
-#   just copy all the entries we care about to dictionary, then append self to new_list
-#   SEPERATE room_prefix and room_number
-#   also note first number (floor)
-
-
-#   json it
-#   take important attributes, make key/value pairs in subdictionary
-#   append k/v of id/subdictionary to class_dictionary
-
-# that ^ gives a dictionary of dictionaries. 
-# - for the subdict, thats good, but list might be best for outter pair????
-
-
-# how should i save this data? when do i do that?
-# save to dictionary, then to json
-
-# json data:
-# - key:id
-# - room number
-# - day of the week (later 
-# - start time
-# - end time
-
-
-# class Sections:
-#     def __init__(self, ):
-#         # TODO
-#     def is_sheduled_today(day: str) -> bool:
-#         # TODO
-#     def minutes_free() -> int: # probably not a float?
-#         # TODO
-
-# code.interact(local = locals())
+write_data(["./jsons/1.json","./jsons/2.json","./jsons/3.json","./jsons/4.json","./jsons/5.json"],  "sections.json")
