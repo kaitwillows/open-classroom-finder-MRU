@@ -70,25 +70,24 @@ def write_data(input_jsons: List[str], output_json: str) -> None:
 
             meetingTime = this_entry["meetingsFaculty"][list(this_entry["meetingsFaculty"].keys())[0]]["meetingTime"] # TODO: make this readable
 
-            good_data[this_id]["beginTime"] = meetingTime["beginTime"]
-            good_data[this_id]["endTime"] = meetingTime["endTime"]
+            good_data[this_id]["timeBooked"] = (meetingTime["beginTime"],meetingTime["endTime"])
 
-            good_data[this_id]["days_booked"] = []
+            good_data[this_id]["daysBooked"] = []
 
             if meetingTime["monday"] == True:
-                good_data[this_id]["days_booked"].append("monday")
+                good_data[this_id]["daysBooked"].append("monday")
             if meetingTime["tuesday"] == True:
-                good_data[this_id]["days_booked"].append("tuesday")
+                good_data[this_id]["daysBooked"].append("tuesday")
             if meetingTime["wednesday"] == True:
-                good_data[this_id]["days_booked"].append("wednesday")
+                good_data[this_id]["daysBooked"].append("wednesday")
             if meetingTime["thursday"] == True:
-                good_data[this_id]["days_booked"].append("thursday")
+                good_data[this_id]["daysBooked"].append("thursday")
             if meetingTime["friday"] == True:
-                good_data[this_id]["days_booked"].append("friday")
+                good_data[this_id]["daysBooked"].append("friday")
             if meetingTime["saturday"] == True:
-                good_data[this_id]["days_booked"].append("saturday")
+                good_data[this_id]["daysBooked"].append("saturday")
             if meetingTime["sunday"] == True:
-                good_data[this_id]["days_booked"].append("sunday")
+                good_data[this_id]["daysBooked"].append("sunday")
             good_data[this_id]["room"] = meetingTime["room"]
 
     # shit data
