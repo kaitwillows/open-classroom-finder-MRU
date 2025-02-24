@@ -6,6 +6,7 @@ import code
 #   monday_bookings: [(start_time, end_time), (start_time, end_time)] # day and tuples cannot run in parallel
 #       
 
+# for efficiency, we should go building -> room -> tuples and floor
 
 
 thing_doer(input_file: str, output_file: str) -> None: # its late and im tired
@@ -30,7 +31,6 @@ thing_doer(input_file: str, output_file: str) -> None: # its late and im tired
 
 
 
-code.interact(local = locals())
 
 
 # # pretend the following is a single section listing
@@ -53,3 +53,7 @@ code.interact(local = locals())
 #             rooms[room_number] = {} 
 #             rooms[room_number][day] = []
 #             rooms[room_number][day].append(time_booked)
+
+
+
+code.interact(local = locals())

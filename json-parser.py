@@ -13,6 +13,10 @@ def dictionarize(item): # this recursively turns a json into a tree of dictionar
 
     if type(item) == type(""):
         try:
+            return int(item) # please just work
+        except:
+            pass
+        try:
             json.loads(item) 
             # don't run the recursive call inside here, or else any Real errors won't show up.
             # thats not the best way to do it, but wtv, it works
