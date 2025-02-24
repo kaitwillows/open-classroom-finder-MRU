@@ -8,29 +8,52 @@ import code
 
 # for efficiency, we should go building -> room -> tuples and floor
 
+def main():
+    thing_doer("sections.json", "test.json")
 
-thing_doer(input_file: str, output_file: str) -> None: # its late and im tired
-    rooms = {}
+
+
+def thing_doer(input_file: str, output_file: str) -> None: # its late and im tired
+    # wings[wing][room][day][bookedTimes] = [...]
+    wings = {}
+    f = open(input_file, "rt")
+    sections = json.loads(f.read())
+    f.close()
+
+
+    for section_key in sections.keys():
+        wing = sections[section_key]["room"].rstrip("1234567890") # presumably, this works
+        room = sections[section_key]["room"]
+        daysBooked = sections[section_key]["daysBooked"]
+        timeBooked = sections[section_key]["timeBooked"] # i see why shit like this should be abstracted oh (fuck)
+
+        for day in daysBooked:
+            try:
+                wings[wing][room][day].append(timeBooked)
+            except KeyError: 
+                try:
+                    wings[wing][room][day] = []
+                    wings[wing][room][day].append(timeBooked)
+                except KeyError:
+                    try:
+                        wings[wing][room] = {}
+                        wings[wing][room][day] = []
+                        wings[wing][room][day].append(timeBooked)
+                    except KeyError:
+                        wings[wing] = {}
+                        wings[wing][room] = {}
+                        wings[wing][room][day] = []
+                        wings[wing][room][day].append(timeBooked)
+    f = open(output_file, "wt")
+    f.write(json.dumps(wings))
+    f.close()
+
+
+
+
+    code.interact(local = locals())
+main()    
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # # pretend the following is a single section listing
@@ -56,4 +79,3 @@ thing_doer(input_file: str, output_file: str) -> None: # its late and im tired
 
 
 
-code.interact(local = locals())
