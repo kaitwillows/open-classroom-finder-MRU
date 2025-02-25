@@ -19,7 +19,7 @@ def find_the_longestest(input_file, day, time, wing):
     open_rooms = [] # open_rooms[n] = ("EA1200", 300) (minutes till booked)
     for room in wings[wing].keys():
         # first, is it actually open?
-        if time_till_booked(day, time, wing, wings[wing][room]) > 0:
+        if time_till_booked(day, time, wing, wings[wing][room]) >= 0:
             open_rooms.append((room, time_till_booked(day, time, wing, wings[wing][room])))
     for room in open_rooms:
         print(f"{room[0]} is booked in {room[1]} minutes")
@@ -27,15 +27,15 @@ def find_the_longestest(input_file, day, time, wing):
 
 
 def time_till_booked(day, time, wing, room):
-    current_longest_time = 0
+    current_shortest_time = 0
     try:
         for time_slot in room[day]:
             if (convert_time(time) > convert_time(time_slot[0]) and (convert_time(time) < convert_time(time_slot[1]))):
                 #ruh roh, we're booked
                 return -1
-            if (convert_time(time_slot[0]) - convert_time(time)) > current_longest_time:
-                current_longest_time = convert_time(time_slot[0]) - convert_time(time)
-        return current_longest_time
+            if (convert_time(time_slot[0]) - convert_time(time)) < current_shortest_time:
+                current_shortest_time = convert_time(time_slot[0]) - convert_time(time)
+        return current_shortest_time
     except KeyError:
         return -1
 
