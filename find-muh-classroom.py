@@ -7,7 +7,7 @@ from room_time import RoomTime
 def main():
     #find_the_openest("rooms.json", "monday", 1701)
     # TODO: Add time.now() call or similar.
-    find_the_longestest("rooms.json", "tuesday", 951, "B")
+    find_the_longestest("rooms.json", "tuesday", 1500, "EB")
 
 def find_the_longestest(input_file, day, time, wing):
     # TODO: Encoding specification.
@@ -31,17 +31,16 @@ def time_till_booked(day, time, wing, room):
     try:
         for time_slot in room[day]:
             try:
+                # TODO: Clarify if this is intended logic, made some assumptions.
                 CURRENT_TIME: RoomTime = RoomTime(str(time))
-                # TODO: Clarify what these are
-                FIRST_TIME: RoomTime = RoomTime(str(time_slot[0]))
-                SECOND_TIME: RoomTime = RoomTime(str(time_slot[1]))
+                BOOKED_START: RoomTime = RoomTime(str(time_slot[0]))
+                BOOKED_END: RoomTime = RoomTime(str(time_slot[1]))
 
-                # TODO: Weird branching if statement
-                if SECOND_TIME > CURRENT_TIME > FIRST_TIME:
-                    #ruh roh, we're booked
+                if BOOKED_START <= CURRENT_TIME <= BOOKED_END:
                     return -1
-                if (FIRST_TIME - CURRENT_TIME) < current_shortest_time:
-                    current_shortest_time = FIRST_TIME - CURRENT_TIME
+
+                current_shortest_time = min(BOOKED_START - CURRENT_TIME, current_shortest_time)
+
             except ValueError as e:
                 print(e)
 
