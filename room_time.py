@@ -26,6 +26,10 @@ class RoomTime:
     def __init__(self, time_string: str) -> None:
         self.room_time: time = time_string
 
+    def __gt__(self, other: "RoomTime") -> bool:
+        # TODO: Implement this and remaining comparisons.
+        return True
+
     @property
     def room_time(self) -> time:
         return self._room_time
