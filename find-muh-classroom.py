@@ -7,7 +7,7 @@ from room_time import RoomTime
 def main():
     #find_the_openest("rooms.json", "monday", 1701)
     # TODO: Add time.now() call or similar.
-    find_the_longestest("rooms.json", "tuesday", 1500, "EB")
+    find_the_longestest("rooms.json", "thursday", 1541, "EA")
 
 def find_the_longestest(input_file, day, time, wing):
     # TODO: Encoding specification.
@@ -27,9 +27,12 @@ def find_the_longestest(input_file, day, time, wing):
 
 # TODO: Wing is not used in this function, might be worth removing.
 def time_till_booked(day, time, wing, room):
-    current_shortest_time = 0
+    current_shortest_time = 9999999999 # TODO: fix this lazy ass workaround
     try:
+        print()
+        print()
         for time_slot in room[day]:
+            print(time_slot)
             try:
                 # TODO: Clarify if this is intended logic, made some assumptions.
                 CURRENT_TIME: RoomTime = RoomTime(str(time))
@@ -38,12 +41,17 @@ def time_till_booked(day, time, wing, room):
 
                 if BOOKED_START <= CURRENT_TIME <= BOOKED_END:
                     return -1
+                if BOOKED_START - CURRENT_TIME < 0:
+                    continue # THIS is why we werent getting any times; the earliest class would be counted as "the shortest time", even if it already ended
 
                 current_shortest_time = min(BOOKED_START - CURRENT_TIME, current_shortest_time)
 
             except ValueError as e:
                 print(e)
+        print(f"{current_shortest_time} is the current shortest time yuh")
 
+        # if current_shortest_time == 9999999999: # TODO: fix the second part of this lazy ass workaround
+        #     return -1
         return current_shortest_time
     except KeyError:
         return -1
