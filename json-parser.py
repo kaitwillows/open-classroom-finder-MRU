@@ -8,7 +8,7 @@ def dictionarize(item): # this recursively turns a json into a tree of dictionar
     '''recursively organizes json data into dictionary tree for easier handling
     
     notes:
-        - the `global_i` thing might be exceptionally shitty
+        - the `global_i` thing might be an exceptionally shitty workaround
     '''
 
     if type(item) == type(""):
