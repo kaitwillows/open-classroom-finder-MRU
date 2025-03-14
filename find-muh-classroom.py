@@ -7,7 +7,7 @@ from room_time import RoomTime
 def main():
     #find_the_openest("rooms.json", "monday", 1701)
     # TODO: Add time.now() call or similar.
-    find_the_longestest("rooms.json", "thursday", 1541, "EA")
+    find_the_longestest("rooms.json", "thursday", 1701, "B")
 
 def find_the_longestest(input_file, day, time, wing):
     # TODO: Encoding specification.
@@ -29,10 +29,10 @@ def find_the_longestest(input_file, day, time, wing):
 def time_till_booked(day, time, wing, room):
     current_shortest_time = 9999999999 # TODO: fix this lazy ass workaround
     try:
-        print()
-        print()
+        # print()
+        # print()
         for time_slot in room[day]:
-            print(time_slot)
+            # print(time_slot)
             try:
                 # TODO: Clarify if this is intended logic, made some assumptions.
                 CURRENT_TIME: RoomTime = RoomTime(str(time))
@@ -48,7 +48,7 @@ def time_till_booked(day, time, wing, room):
 
             except ValueError as e:
                 print(e)
-        print(f"{current_shortest_time} is the current shortest time yuh")
+        # print(f"{current_shortest_time} is the current shortest time yuh")
 
         # if current_shortest_time == 9999999999: # TODO: fix the second part of this lazy ass workaround
         #     return -1
@@ -83,4 +83,4 @@ def find_the_openest(input_file, day, time): # basically, whats gonna be open ti
 
 main()
 
-code.interact(local = locals())
+# code.interact(local = locals())
